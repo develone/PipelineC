@@ -1,0 +1,9 @@
+11/26/24
+Downloaded ice_makefile_pipelinec.zip from discord tinyvision.ai absurdfatlism
+extracted in Downloads
+Downloaded oss-cad-suite-linux-arm64-20241126.tgz from https://github.com/YosysHQ/oss-cad-suite-build/releases/
+untarred in /home/devel/
+I forked https://github.com/JulianKemmerer/PipelineC
+I created new branch test-dev
+git clone https://github.com/develone/PipelineC.git -b test-dev
+created setup_pipelineC.sh which 
