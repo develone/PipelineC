@@ -1,3 +1,9 @@
+11/27/24
+sudo apt install ghdl
+Downloaded oss-cad-suite-linux-arm64-20241127.tgz
+devel@pi5-80:~ $ rm -rf oss-cad-suite/
+devel@pi5-80:~ $ tar xvfz Downloads/oss-cad-suite-linux-arm64-20241127.tgz
+
 11/26/24
 Downloaded ice_makefile_pipelinec.zip from discord tinyvision.ai absurdfatlism
 extracted in Downloads
