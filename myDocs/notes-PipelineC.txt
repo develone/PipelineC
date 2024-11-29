@@ -1,4 +1,9 @@
 11/28/24
+sudo apt install gnat
+git clone https://github.com/ghdl/ghdl
+./configure --with-llvm-config
+make
+sudo make install
 
 now in .bashrc
 export PATH="/home/devel/oss-cad-suite/bin:$PATH"
