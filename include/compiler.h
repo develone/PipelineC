@@ -68,6 +68,9 @@ FLOOR((float)(N)/(float)(D))
 #define CLK_MHZ(clock, mhz)\
 PRAGMA_MESSAGE(CLK_MHZ clock mhz)
 
+#define CLK_MHZ_GROUP(clock, mhz, group)\
+PRAGMA_MESSAGE(CLK_MHZ_GROUP clock mhz group)
+
 #define MAIN(main_func)\
 PRAGMA_MESSAGE(MAIN main_func)
 
@@ -133,23 +136,30 @@ type_t name() \
 #define GLOBAL_OUT_WIRE_CONNECT(type_t, wire, name)\
 type_t name; \
 PRAGMA_MESSAGE(MAIN PPCAT(name,_connect)) \
-PRAGMA_MESSAGE(FUNC_WIRES name) \
+PRAGMA_MESSAGE(FUNC_WIRES PPCAT(name,_connect)) \
 void PPCAT(name,_connect)(){ \
   wire = name; \
 }
 #define GLOBAL_OUT_REG_WIRE_CONNECT(type_t, wire, name)\
 type_t name; \
 PRAGMA_MESSAGE(MAIN PPCAT(name,_connect)) \
-PRAGMA_MESSAGE(FUNC_WIRES name) \
+PRAGMA_MESSAGE(FUNC_WIRES PPCAT(name,_connect)) \
 void PPCAT(name,_connect)(){ \
   static type_t the_reg; \
   wire = the_reg; \
   the_reg = name; \
 }
+#define GLOBAL_IN_WIRE_CONNECT(type_t, name, wire)\
+type_t name; \
+PRAGMA_MESSAGE(MAIN PPCAT(name,_connect)) \
+PRAGMA_MESSAGE(FUNC_WIRES PPCAT(name,_connect)) \
+void PPCAT(name,_connect)(){ \
+  name = wire; \
+}
 #define GLOBAL_IN_REG_WIRE_CONNECT(type_t, name, wire)\
 type_t name; \
 PRAGMA_MESSAGE(MAIN PPCAT(name,_connect)) \
-PRAGMA_MESSAGE(FUNC_WIRES name) \
+PRAGMA_MESSAGE(FUNC_WIRES PPCAT(name,_connect)) \
 void PPCAT(name,_connect)(){ \
   static type_t the_reg; \
   name = the_reg; \
