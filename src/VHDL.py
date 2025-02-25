@@ -2765,7 +2765,23 @@ end arch;
                 print(
                     "WARNING:",
                     var_name,
+                    "Xilinx async fifo depth increased to minimum allowed =",
+                    depth,
+                )
+            elif flow_control_is_async and depth < 4:
+                depth = 4
+                print(
+                    "WARNING:",
+                    var_name,
                     "async fifo depth increased to minimum allowed =",
+                    depth,
+                )
+            elif depth < 2:
+                depth = 2
+                print(
+                    "WARNING:",
+                    var_name,
+                    "fifo depth increased to minimum allowed =",
                     depth,
                 )
             in_t = c_type + "[" + str(write_size) + "]"

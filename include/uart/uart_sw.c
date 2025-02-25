@@ -1,5 +1,13 @@
 // Code wrapping for read+writing UART file interface
 
+#ifndef UART_TTY_DEVICE
+#define UART_TTY_DEVICE "/dev/ttyUSB1"
+#endif 
+
+#ifndef UART_BAUD
+#define UART_BAUD B115200
+#endif
+
 // Thanks https://stackoverflow.com/questions/6947413/how-to-open-read-and-write-from-serial-port-in-c
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,7 +81,7 @@ int uart_fd;
 // Wrapper around uart init
 int init_uart()
 {
-  char *portname = "/dev/ttyUSB1";
+  char *portname = UART_TTY_DEVICE;
   uart_fd = open (portname, O_RDWR | O_NOCTTY | O_SYNC);
   if (uart_fd < 0)
   {
@@ -82,7 +90,7 @@ int init_uart()
   }
 
   set_interface_attribs (uart_fd, B115200, 0);  //B4800 B115200  B9600  set speed to 115,200 bps, 8n1 (no parity)
-  printf("Baud: B115200 \n");
+  //printf("Baud: B115200 \n");
   set_blocking (uart_fd, 0);                // set blocking
 
   return 0;
