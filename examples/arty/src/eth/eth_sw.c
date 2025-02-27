@@ -12,7 +12,8 @@
 
 #include "fpga_mac.h"
 
-#define DEFAULT_IF	"enx0050b6248f73"
+//#define DEFAULT_IF	"enx0050b6248f73"
+#define DEFAULT_IF	"eth0"
 #define BUF_SIZ		1024
 #define PAYLOAD_MAX (BUF_SIZ-sizeof(struct ether_header))
 #define ETHER_TYPE 0xFFFF

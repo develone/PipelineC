@@ -63,7 +63,7 @@ CLK_MHZ(pll_clk, PLL_CLK_MHZ)
 #include "examples/net/fpga_mac.h"
 
 // Instead of loopback, can wire up a demo of doing some work
-//#define ETH_DEMO_IS_WORK_PIPELINE
+#define ETH_DEMO_IS_WORK_PIPELINE
 #ifdef ETH_DEMO_IS_WORK_PIPELINE
 // Include definition of work to compute
 #include "examples/net/work.h"

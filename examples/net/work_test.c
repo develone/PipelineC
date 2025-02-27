@@ -22,7 +22,8 @@ double get_wall_time(){
 
 // Use eth to transport inputs and outputs
 #include "fpga_mac.h" // MAC addr to expect from FPGA
-#define DEFAULT_IF	"enx0050b6248f73" // host ethernet interface to use
+//#define DEFAULT_IF	"enx0050b6248f73" // host ethernet interface to use
+#define DEFAULT_IF	"eth0" // host ethernet interface to use
 #include "eth_sw.c"
 
 // Definition of work related stuff
