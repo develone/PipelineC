@@ -14,6 +14,14 @@ typedef struct axis8_t
 } axis8_t;
 DECL_STREAM_TYPE(axis8_t)
 
+typedef struct axis16_t
+{
+  uint8_t tdata[2];
+  uint1_t tkeep[2];
+  uint1_t tlast;
+} axis16_t;
+DECL_STREAM_TYPE(axis16_t)
+
 typedef struct axis32_t
 {
   uint8_t tdata[4];
@@ -22,6 +30,38 @@ typedef struct axis32_t
 } axis32_t;
 DECL_STREAM_TYPE(axis32_t)
 
+typedef struct axis64_t
+{
+  uint8_t tdata[8];
+  uint1_t tkeep[8];
+	uint1_t tlast;
+} axis64_t;
+DECL_STREAM_TYPE(axis64_t)
+
+typedef struct axis128_t
+{
+  uint8_t tdata[16];
+  uint1_t tkeep[16];
+	uint1_t tlast;
+} axis128_t;
+DECL_STREAM_TYPE(axis128_t)
+
+typedef struct axis256_t
+{
+  uint8_t tdata[32];
+  uint1_t tkeep[32];
+	uint1_t tlast;
+} axis256_t;
+DECL_STREAM_TYPE(axis256_t)
+
+typedef struct axis512_t
+{
+  uint8_t tdata[64];
+  uint1_t tkeep[64];
+	uint1_t tlast;
+} axis512_t;
+DECL_STREAM_TYPE(axis512_t)
+
 /* How useful is this?
 typedef struct axis32_sized16_t
 {
@@ -29,13 +69,7 @@ typedef struct axis32_sized16_t
 	uint16_t length;
 } axis32_sized16_t;*/
 
-typedef struct axis16_t
-{
-  uint8_t tdata[2];
-  uint1_t tkeep[2];
-  uint1_t tlast;
-} axis16_t;
-DECL_STREAM_TYPE(axis16_t)
+
 
 // TODO make this into macro for all axis widths
 uint1_t axis8_keep_count(stream(axis8_t) s){
@@ -236,6 +270,34 @@ axis32_to_axis8_t axis32_to_axis8(stream(axis32_t) axis_in, uint1_t axis_out_rea
     s_axis_tkeep(1) <= axis_in.data.tkeep(1)(0); \n\
     s_axis_tkeep(0) <= axis_in.data.tkeep(0)(0); \n\
   ");
+}
+
+typedef struct axis128_to_axis512_t
+{
+  stream(axis512_t) axis_out;
+  uint1_t axis_in_ready;
+}axis128_to_axis512_t;
+axis128_to_axis512_t axis128_to_axis512(
+  stream(axis128_t) axis_in,
+  uint1_t axis_out_ready
+){
+  //#warning "TODO axis128_to_axis512"
+  axis128_to_axis512_t o;
+  return o;
+}
+
+typedef struct axis512_to_axis128_t
+{
+  stream(axis128_t) axis_out;
+  uint1_t axis_in_ready;
+}axis512_to_axis128_t;
+axis512_to_axis128_t axis512_to_axis128(
+  stream(axis512_t) axis_in,
+  uint1_t axis_out_ready
+){
+  //#warning "TODO axis512_to_axis128"
+  axis512_to_axis128_t o;
+  return o;
 }
 
 // Module to limit the max size/length of AXIS frames by dropping excess data
