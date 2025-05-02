@@ -1,0 +1,53 @@
+
+██████╗ ██╗██████╗ ███████╗██╗     ██╗███╗   ██╗███████╗ ██████╗
+██╔══██╗██║██╔══██╗██╔════╝██║     ██║████╗  ██║██╔════╝██╔════╝
+██████╔╝██║██████╔╝█████╗  ██║     ██║██╔██╗ ██║█████╗  ██║     
+██╔═══╝ ██║██╔═══╝ ██╔══╝  ██║     ██║██║╚██╗██║██╔══╝  ██║     
+██║     ██║██║     ███████╗███████╗██║██║ ╚████║███████╗╚██████╗
+╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝
+
+Output directory: /home/devel/Downloads/test-extract-of-zip/ice_makefile_pipelinec/pipelinec_output
+================== Parsing C Code to Logical Hierarchy ================================
+Parsing: /home/devel/Downloads/test-extract-of-zip/ice_makefile_pipelinec/top.c
+Preprocessing file...
+Parsing C syntax...
+Parsing non-function definitions...
+Matching clock domain: main function led_r_connect based on shared global variable led_r used with clock domain for main function blinky_main @ 12.0 MHz, Group: None
+Matching clock domain: main function led_g_connect based on shared global variable led_g used with clock domain for main function blinky_main @ 12.0 MHz, Group: None
+Matching clock domain: main function led_b_connect based on shared global variable led_b used with clock domain for main function blinky_main @ 12.0 MHz, Group: None
+Matching clock domain: main function uart_tx_connect based on shared global variable uart_tx used with clock domain for main function uart_main @ 12.0 MHz, Group: None
+Matching clock domain: main function uart_rx_connect based on shared global variable uart_rx used with clock domain for main function uart_main @ 12.0 MHz, Group: None
+Matching clock domain: main function ice_39 based on shared global variable ice_39 used with clock domain for main function led_g_connect @ 12.0 MHz, Group: None
+Matching clock domain: main function ice_40 based on shared global variable ice_40 used with clock domain for main function led_b_connect @ 12.0 MHz, Group: None
+Matching clock domain: main function ice_41 based on shared global variable ice_41 used with clock domain for main function led_r_connect @ 12.0 MHz, Group: None
+Matching clock domain: main function ice_25 based on shared global variable ice_25 used with clock domain for main function uart_tx_connect @ 12.0 MHz, Group: None
+Matching clock domain: main function ice_27 based on shared global variable ice_27 used with clock domain for main function uart_rx_connect @ 12.0 MHz, Group: None
+Parsing derived fsm logic functions...
+Doing old-style code generation based on PipelineC supported text patterns...
+Elaborating function dataflow...
+Using DIAMOND synthesizing for part: ICE40UP5K-SG48
+Elaborating dataflow of function: ice_39
+Elaborating dataflow of function: ice_40
+Elaborating dataflow of function: ice_41
+Elaborating dataflow of function: led_r_connect
+Elaborating dataflow of function: led_g_connect
+Elaborating dataflow of function: led_b_connect
+Elaborating dataflow of function: ice_25
+Elaborating dataflow of function: ice_27
+Elaborating dataflow of function: uart_tx_connect
+Elaborating dataflow of function: uart_rx_connect
+Elaborating dataflow of function: blinky_main
+Elaborating dataflow of function: uart_main
+Elaborating user function hierarchies down to raw HDL logic...
+Doing obvious logic trimming/collapsing...
+Writing generated PipelineC code from elaboration to output directories...
+Writing cache of parsed information to file...
+================== Writing Resulting Logic to File ================================
+Writing log of integer module instances: /home/devel/Downloads/test-extract-of-zip/ice_makefile_pipelinec/pipelinec_output/integer_module_instances.log
+Writing VHDL files for all functions (before any added pipelining)...
+Writing multi main top level files...
+Writing the constant struct+enum definitions as defined from C code...
+Writing global wire definitions as parsed from C code...
+Writing output files before adding pipelining...
+Output VHDL files: /home/devel/Downloads/test-extract-of-zip/ice_makefile_pipelinec/pipelinec_output/vhdl_files.txt
+Done.

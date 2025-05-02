@@ -1,0 +1,43 @@
+11/28/24
+sudo apt install gnat
+git clone https://github.com/ghdl/ghdl
+./configure --with-llvm-config
+make
+sudo make install
+
+now in .bashrc
+export PATH="/home/devel/oss-cad-suite/bin:$PATH"
+export PIPELINEC_REPO="$HOME/PipelineC"
+Downloaded oss-cad-suite-linux-arm64-20241128.tgz
+devel@pi5-80:~ $ cd Downloads/test-extract-of-zip/ice_makefile_pipelinec/
+devel@pi5-80:~/Downloads/test-extract-of-zip/ice_makefile_pipelinec $ make clean
+rm -f *.json *.asc *.bin *.uf2
+rm -f yosys_stderr.log
+rm -f pipelinec.log
+rm -f -r pipelinec_output
+rm -f lextab.py
+rm -f yacctab.py
+rm -f dfu_util.log
+devel@pi5-80:~/Downloads/test-extract-of-zip/ice_makefile_pipelinec $ make pipelinec
+/home/devel/PipelineC/src/pipelinec top.c --top pipelinec_top --out_dir pipelinec_output --comb --no_synth > pipelinec.log
+devel@pi5-80:~/Downloads/test-extract-of-zip/ice_makefile_pipelinec $ ls pipelinec_output/
+blinky_main               include                       uart_main
+built_in                  integer_module_instances.log  vhdl_files.txt
+c_structs_pkg.pkg.vhd     pipelinec_top
+global_wires_pkg.pkg.vhd  top.c.parsed
+
+11/27/24
+sudo apt install ghdl
+Downloaded oss-cad-suite-linux-arm64-20241127.tgz
+devel@pi5-80:~ $ rm -rf oss-cad-suite/
+devel@pi5-80:~ $ tar xvfz Downloads/oss-cad-suite-linux-arm64-20241127.tgz
+
+11/26/24
+Downloaded ice_makefile_pipelinec.zip from discord tinyvision.ai absurdfatlism
+extracted in Downloads
+Downloaded oss-cad-suite-linux-arm64-20241126.tgz from https://github.com/YosysHQ/oss-cad-suite-build/releases/
+untarred in /home/devel/
+I forked https://github.com/JulianKemmerer/PipelineC
+I created new branch test-dev
+git clone https://github.com/develone/PipelineC.git -b test-dev
+created setup_pipelineC.sh which 

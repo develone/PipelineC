@@ -1,0 +1,67 @@
+devel@pi5-80:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ git diff eth_clocks.py
+diff --git a/examples/pico-ice/ice_makefile_pipelinec/eth_clocks.py b/examples/pico-ice/ice_makefile_pipelinec/eth_clocks.py
+index b44d887..7402498 100644
+--- a/examples/pico-ice/ice_makefile_pipelinec/eth_clocks.py
++++ b/examples/pico-ice/ice_makefile_pipelinec/eth_clocks.py
+@@ -1,2 +1,2 @@
+ ctx.addClock("pipelinec_inst.clk_50p0", 50.0)
+-ctx.addClock("pipelinec_inst.clk_16p0", 16.0)
++ctx.addClock("pipelinec_inst.clk_25p0", 25.0)
+
+devel@pi5-80:~/PipelineC/examples/net $ git diff eth_sw.c
+diff --git a/examples/net/eth_sw.c b/examples/net/eth_sw.c
+index 38275e5..4cadd07 100644
+--- a/examples/net/eth_sw.c
++++ b/examples/net/eth_sw.c
+@@ -14,7 +14,8 @@
+ #include "fpga_mac.h"
+ #endif
+ #ifndef DEFAULT_IF
+-#define DEFAULT_IF     "enx0050b6248f73"
++//#define DEFAULT_IF   "enx0050b6248f73"
++#define DEFAULT_IF     "eth0"
+ #endif
+ #define BUF_SIZ                1024
+ #define PAYLOAD_MAX (BUF_SIZ-sizeof(struct ether_header))
+
+devel@pi5-80:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ git diff ethernet_top.c
+diff --git a/examples/pico-ice/ice_makefile_pipelinec/ethernet_top.c b/examples/pico-ice/ice_makefile_pipelinec/ethernet_top.c
+index 8833382..2ab68c3 100644
+--- a/examples/pico-ice/ice_makefile_pipelinec/ethernet_top.c
++++ b/examples/pico-ice/ice_makefile_pipelinec/ethernet_top.c
+@@ -63,7 +63,7 @@ CLK_MHZ(pll_clk, PLL_CLK_MHZ)
+ #include "examples/net/fpga_mac.h"
+ 
+ // Instead of loopback, can wire up a demo of doing some work
+-//#define ETH_DEMO_IS_WORK_PIPELINE
++#define ETH_DEMO_IS_WORK_PIPELINE
+ #ifdef ETH_DEMO_IS_WORK_PIPELINE
+ // Include definition of work to compute
+ #include "examples/net/work.h"
+
+ ~/PipelineC/examples/net/
+ 2037  ls
+ gcc -I ../../include  -I ~/PipelineC/examples/pico-ice/ice_makefile_pipelinec/pipelinec_output -Wall -pthread work_test.c -o work_test
+ 2039  ls
+ sudo ./work_test
+devel@pi5-80:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ make clean
+rm -f lextab.py
+rm -f yacctab.py
+rm -f pll_clk_mhz.h
+rm -f -r pipelinec_output
+rm -f pipelinec.log
+rm -f pll.v
+rm -f *.json *.asc *.bin *.uf2
+rm -f yosys_stderr.log
+rm -f dfu_util.log
+devel@pi5-80:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ make pipelinec TOP_NAME=ethernet_top NEXTPNR_ARGS="--pre-pack eth_clocks.py"
+echo "#define PLL_CLK_MHZ 25.0\n" > pll_clk_mhz.h
+/home/devel/PipelineC/src/pipelinec ethernet_top.c --top pipelinec_top --out_dir pipelinec_output --comb --no_synth > pipelinec.log
+devel@pi5-80:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ make gateware.bin TOP_NAME=ethernet_top NEXTPNR_ARGS="--pre-pack eth_clocks.py"
+/home/devel/oss-cad-suite//bin/icepll -q -i 12 -o 25.0 -p -m -f pll.v
+/home/devel/oss-cad-suite//bin/yosys -q -m ghdl -p "ghdl --std=08 -frelaxed `cat pipelinec_output/vhdl_files.txt` -e pipelinec_top; read_verilog -sv ethernet_top.sv pll.v; synth_ice40 -top ethernet_top -json gateware.json" 2> yosys_stderr.log
+/home/devel/oss-cad-suite//bin/nextpnr-ice40 -q --seed 1 --up5k --package sg48 --pcf ice40.pcf --json gateware.json --asc gateware.asc --pre-pack eth_clocks.py
+/home/devel/oss-cad-suite//bin/icepack gateware.asc gateware.bin
+devel@pi5-80:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ bin2uf2 -o gateware.uf2 gateware.bin 
+devel@pi5-80:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ scp gateware.uf2 pi5-90:/media/devel/pico-ice/
+gateware.uf2                                  100%  204KB  74.6MB/s   00:00
