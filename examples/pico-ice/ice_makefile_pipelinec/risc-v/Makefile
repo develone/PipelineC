@@ -25,6 +25,6 @@ hex: all
 	./bin2vhdl.py data.bin
 	
 clean:
-	rm -f main
+	rm -f main text.bin data.bin text_mem_init.h data_mem_init.h
 
 .PHONY: all sim dump-elf dump-code dump-comment hex clean

@@ -11,9 +11,14 @@
 #include "prep_auth_data/prep_auth_data.c"
 // Instance of poly1305 part of encryption
 #include "poly1305/poly1305_mac.c"
+// Instance of the appending auth tag part of encryption
+#include "append_auth_tag/append_auth_tag.c"
 
 // The primary dataflow for single clock domain ChaCha20-Poly1305 encryption
-// chacha20 -> prepare auth data -> poly1305
+// plaintext -> chacha20 -> ciphertext ...
+//  ...
+// ciphertext -------------------------------------------------> append auth tag -> output axis
+//             |-> prep auth data -> auth data -> poly1305 -> auth tag --^
 #pragma PART "xc7a200tffg1156-2" // Artix 7 200T
 #pragma MAIN_MHZ main 80.0
 void main(){
@@ -23,9 +28,26 @@ void main(){
     chacha20_encrypt_key = chacha20poly1305_encrypt_key;
     chacha20_encrypt_nonce = chacha20poly1305_encrypt_nonce;
 
-    // Connect chacha20_encrypt output to prep_auth_data input
+    // Connect chacha20_encrypt output to both
+    //  prep_auth_data input
+    //  append auth tag input
+    // Fork the stream by combining valids and readys
+    //  default no data passing, invalidate passthrough
     prep_auth_data_axis_in = chacha20_encrypt_axis_out;
-    chacha20_encrypt_axis_out_ready = prep_auth_data_axis_in_ready;
+    prep_auth_data_axis_in.valid = 0;
+    append_auth_tag_axis_in = chacha20_encrypt_axis_out;
+    append_auth_tag_axis_in.valid = 0;
+    //  allow pass through if both sinks are ready
+    //  or if sink isnt ready (no data passing anyway)
+    chacha20_encrypt_axis_out_ready = prep_auth_data_axis_in_ready & append_auth_tag_axis_in_ready;
+    if(chacha20_encrypt_axis_out_ready | ~prep_auth_data_axis_in_ready){
+        prep_auth_data_axis_in.valid = chacha20_encrypt_axis_out.valid;
+    }
+    if(chacha20_encrypt_axis_out_ready | ~append_auth_tag_axis_in_ready){
+        append_auth_tag_axis_in.valid = chacha20_encrypt_axis_out.valid;
+    }
+
+    // Prep auth data CSR inputs
     prep_auth_data_aad = chacha20poly1305_encrypt_aad;
     prep_auth_data_aad_len = chacha20poly1305_encrypt_aad_len;
 
@@ -34,11 +56,13 @@ void main(){
     prep_auth_data_axis_out_ready = poly1305_mac_data_in_ready;
     poly1305_mac_data_key = chacha20poly1305_encrypt_poly1305_key;
 
-    // Connect poly1305_mac output to chacha20poly1305_encrypt_* output
-    chacha20poly1305_encrypt_axis_out = poly1305_mac_data_out;
-    poly1305_mac_data_out_ready = chacha20poly1305_encrypt_axis_out_ready;
-    chacha20poly1305_encrypt_auth_tag = poly1305_mac_auth_tag;
-    chacha20poly1305_encrypt_auth_tag_valid = poly1305_mac_auth_tag_valid;
+    // Connect poly1305_mac auth tag output to append auth tag input
+    append_auth_tag_auth_tag_in = poly1305_mac_auth_tag;
+    poly1305_mac_auth_tag_ready = append_auth_tag_auth_tag_in_ready;
+    
+    // Connect append auth tag output to chacha20poly1305_encrypt_* output
+    chacha20poly1305_encrypt_axis_out = append_auth_tag_axis_out;
+    append_auth_tag_axis_out_ready = chacha20poly1305_encrypt_axis_out_ready;
 }
 
 
@@ -163,7 +187,7 @@ void tb()
     uint8_t aad[AAD_MAX_LEN] = AAD_TEST_STR;
     uint32_t aad_len = strlen(AAD_TEST_STR);
     
-    // poly1305_key obtained by running test main software C code
+    // poly1305_key obtained by running test main.c software C code
     uint8_t poly1305_key[POLY1305_KEY_SIZE] = {
         0x7b, 0xac, 0x2b, 0x25, 0x2d, 0xb4, 0x47, 0xaf,
         0x09, 0xb6, 0x7a, 0x55, 0xa4, 0xe9, 0x55, 0x84,
@@ -197,13 +221,14 @@ void tb()
     if(plaintext_remaining > 0)
     {
         // Up to 16 bytes of plaintext onto axis128
-        ARRAY_COPY(chacha20poly1305_encrypt_axis_in.data.tdata, plaintext, 16)
+        // padded with zeros if needed
         for(int32_t i=0; i<16; i+=1)
         {
-            chacha20poly1305_encrypt_axis_in.data.tkeep[i] = 0;
+            chacha20poly1305_encrypt_axis_in.data.tkeep[i] = 1;
+            chacha20poly1305_encrypt_axis_in.data.tdata[i] = 0;
             if(plaintext_remaining > i)
             {
-                chacha20poly1305_encrypt_axis_in.data.tkeep[i] = 1;
+                chacha20poly1305_encrypt_axis_in.data.tdata[i] = plaintext[i];
             }
         }
         chacha20poly1305_encrypt_axis_in.data.tlast = (plaintext_remaining <= 16);
@@ -211,7 +236,11 @@ void tb()
         if(chacha20poly1305_encrypt_axis_in.valid & chacha20poly1305_encrypt_axis_in_ready)
         {
             PRINT_16_BYTES("Plaintext next 16 bytes: ", chacha20poly1305_encrypt_axis_in.data.tdata)
-            plaintext_remaining -= 16;
+            if(chacha20poly1305_encrypt_axis_in.data.tlast){
+                plaintext_remaining = 0;
+            }else{
+                plaintext_remaining -= 16;
+            }
             ARRAY_SHIFT_DOWN(plaintext, PLAINTEXT_TEST_STR_LEN, 16)
         }
     }
@@ -222,17 +251,67 @@ void tb()
     chacha20poly1305_encrypt_aad_len = aad_len;
     chacha20poly1305_encrypt_poly1305_key = poly1305_key;
 
+    // Expected ciphertext and auth tag output from running main.c demo
+    // Ciphertext: 
+    //  d71e85316edd03f2
+    //  5caec6b85ee87add
+    //  e1eda86860730bb9
+    //  a8eba2e375f666c4
+    //  23b2eb54c9fa7958
+    //  98aed77c8efb2680
+    //  1c77920fdb08096e
+    #define CIPHERTEXT_SIZE ((7*8) + POLY1305_AUTH_TAG_SIZE)
+    static uint32_t ciphertext_remaining = CIPHERTEXT_SIZE;
+    static uint8_t expected_ciphertext[CIPHERTEXT_SIZE] = {
+        0xd7, 0x1e, 0x85, 0x31, 0x6e, 0xdd, 0x03, 0xf2, 
+        0x5c, 0xae, 0xc6, 0xb8, 0x5e, 0xe8, 0x7a, 0xdd,
+        0xe1, 0xed, 0xa8, 0x68, 0x60, 0x73, 0x0b, 0xb9,
+        0xa8, 0xeb, 0xa2, 0xe3, 0x75, 0xf6, 0x66, 0xc4,
+        0x23, 0xb2, 0xeb, 0x54, 0xc9, 0xfa, 0x79, 0x58,
+        0x98, 0xae, 0xd7, 0x7c, 0x8e, 0xfb, 0x26, 0x80,
+        0x1c, 0x77, 0x92, 0x0f, 0xdb, 0x08, 0x09, 0x6e,
+        // Auth Tag: 
+        //  5da87d6a2d15036c
+        //  a7cb91a8ec3dba7c
+        0x5d, 0xa8, 0x7d, 0x6a, 0x2d, 0x15, 0x03, 0x6c,
+        0xa7, 0xcb, 0x91, 0xa8, 0xec, 0x3d, 0xba, 0x7c
+    };
+
     // Stream ciphertext out of dut
     chacha20poly1305_encrypt_axis_out_ready = 1;
     if(chacha20poly1305_encrypt_axis_out.valid & chacha20poly1305_encrypt_axis_out_ready)
     {
         // Print ciphertext as it flows out of dut
         PRINT_16_BYTES("Ciphertext next 16 bytes: ", chacha20poly1305_encrypt_axis_out.data.tdata)
-        // Print auth tag as it flows out of dut
-        if(chacha20poly1305_encrypt_auth_tag_valid)
+        // compare to expected_ciphertext and shift
+        for(int32_t i = 0; i<16; i+=1)
         {
-            PRINT_16_BYTES("Auth tag: ", chacha20poly1305_encrypt_auth_tag)
+            if(ciphertext_remaining > i)
+            {
+                if(chacha20poly1305_encrypt_axis_out.data.tdata[i] != expected_ciphertext[i])
+                {
+                    uint32_t ciphertext_pos = (CIPHERTEXT_SIZE-ciphertext_remaining) + i;
+                    printf("ERROR: Ciphertext mismatch at byte[%d]. expected 0x%X got 0x%X\n", 
+                           ciphertext_pos, expected_ciphertext[i], chacha20poly1305_encrypt_axis_out.data.tdata[i]);
+                }
+            }
         }
+        // Too much data?
+        if(ciphertext_remaining == 0){
+            printf("ERROR: Extra ciphertext output!\n");
+        }
+        // Too little data? Or more to come?
+        if(chacha20poly1305_encrypt_axis_out.data.tlast){
+            if(ciphertext_remaining > 16){
+                printf("ERROR: Early end to ciphertext output!\n");
+            }else{
+                printf("Test DONE\n");
+            }
+            ciphertext_remaining = 0;
+        }else{
+            ciphertext_remaining -= 16;
+        }
+        ARRAY_SHIFT_DOWN(expected_ciphertext, CIPHERTEXT_SIZE, 16)
     }
 
     cycle_counter += 1;
