@@ -1,5 +1,10 @@
+// Timing improvements?
+//  try one hot state?
+//  turn off all?some? same cycle state transition?
+//  make mmio regs 1 cycle read instead of comb?
+
 // See configuration details like top level pin mapping in top.h
-//#define DEFAULT_PI_UART
+#define DEFAULT_PI_UART
 //#define DEFAULT_VGA_PMOD // TODO can't meet 25MHz pixel clock yet...
 #include "../top.h"
 
@@ -82,6 +87,10 @@ riscv_mem_map_mod_out_t(my_mmio_out_t) my_mem_map_module(
   // MM Handshake regs start off looking like regular ctrl+status MM regs
   static mm_handshake_data_t handshake_data;
   static mm_handshake_valid_t handshake_valid;
+  // Handshake signals writes happen below
+  // better timing to use registers directly for handshake valid set/clear logic below
+  mm_handshake_valid_t handshake_valid_reg_value = handshake_valid;
+  mm_handshake_data_t handshake_data_reg_value = handshake_data;
 
   // Start MM operation
   if(is_START_state){
@@ -187,20 +196,27 @@ riscv_mem_map_mod_out_t(my_mmio_out_t) my_mem_map_module(
     }
   }
 
-  // Handshake valid signals are sometimes auto set/cleared
-  mm_handshake_valid_t handshake_valid_reg_value = handshake_valid; // Before writes below
-
-  // 2 point FFT comb logic blob between MMIO regs
-  #ifdef FFT_USE_COMB_LOGIC_HARDWARE
-  inputs.status.fft_2pt_out = fft_2pt_w_omega_lut(ctrl.fft_2pt_in);
-  #endif
-
   // Memory muxing/select logic for control and status registers
   if(mm_regs_enabled){
     STRUCT_MM_ENTRY_NEW(MM_CTRL_REGS_ADDR, mm_ctrl_regs_t, ctrl, ctrl, addr, o.addr_is_mapped, o.rd_data)
     STRUCT_MM_ENTRY_NEW(MM_STATUS_REGS_ADDR, mm_status_regs_t, status, status, addr, o.addr_is_mapped, o.rd_data)
     STRUCT_MM_ENTRY_NEW(MM_HANDSHAKE_DATA_ADDR, mm_handshake_data_t, handshake_data, handshake_data, addr, o.addr_is_mapped, o.rd_data)
     STRUCT_MM_ENTRY_NEW(MM_HANDSHAKE_VALID_ADDR, mm_handshake_valid_t, handshake_valid, handshake_valid, addr, o.addr_is_mapped, o.rd_data)
+  }
+
+  // Connect UART RX and TX handshakes
+  // TODO MAKE MACROS FOR THIS
+  // UART RX Handshake Input/Read
+  uart_rx_mac_out_ready = ~handshake_valid_reg_value.uart_rx;
+  if(uart_rx_mac_word_out.valid & uart_rx_mac_out_ready){
+    handshake_data.uart_rx = uart_rx_mac_word_out.data;
+    handshake_valid.uart_rx = 1;
+  } 
+  // UART TX Handshake Output/Write
+  uart_tx_mac_word_in.data = handshake_data_reg_value.uart_tx;
+  uart_tx_mac_word_in.valid = handshake_valid_reg_value.uart_tx;
+  if(uart_tx_mac_word_in.valid & uart_tx_mac_in_ready){
+    handshake_valid.uart_tx = 0;
   }
 
   // BRAM0 instance
@@ -293,11 +309,11 @@ riscv_mem_map_mod_out_t(my_mmio_out_t) my_mem_map_module(
 #include "examples/risc-v/mem_decl.h"
 
 // Declare globally visible auto pipelines out of exe logic
-#include "global_func_inst.h"
 //  Global function has no built in delay, can 'return' in same cycle
-GLOBAL_FUNC_INST_W_VALID_ID(execute_rv32i_pipeline, execute_t, execute_rv32i, execute_rv32i_in_t) 
-#ifdef RV32_M
 //  Global pipeline has built in minimum 2 cycle delay for input and output regs
+#include "global_func_inst.h"
+GLOBAL_PIPELINE_INST_W_VALID_ID(execute_rv32i_pipeline, execute_t, execute_rv32i, execute_rv32i_in_t)
+#ifdef RV32_M
 GLOBAL_PIPELINE_INST_W_VALID_ID(execute_rv32_mul_pipeline, execute_t, execute_rv32_mul, execute_rv32_m_ext_in_t)
 GLOBAL_PIPELINE_INST_W_VALID_ID(execute_rv32_div_pipeline, execute_t, execute_rv32_div, execute_rv32_m_ext_in_t)
 #endif
@@ -331,8 +347,6 @@ typedef enum cpu_state_t{
 // CPU top level
 typedef struct riscv_out_t{
   // Debug IO
-  uint1_t halt;
-  uint32_t return_value;
   uint32_t pc;
   uint1_t unknown_op;
   uint1_t mem_out_of_range;
@@ -396,6 +410,7 @@ riscv_out_t fsm_riscv(
   // Instruction memory
   imem_out = riscv_imem_ram(pc>>2, 1);
   if((pc>>2) >= RISCV_IMEM_NUM_WORDS){
+    printf("Error: PC = 0x%X out of range, size = 0x%X\n", pc, RISCV_IMEM_NUM_WORDS<<2);
     o.pc_out_of_range = 1;
   }
 
@@ -457,7 +472,9 @@ riscv_out_t fsm_riscv(
       execute_rv32i_pipeline_in_valid = 1;
       // RV32I might not need pipelining, so allow same cycle execution
       // (same cycle as if in-line execute() called here)
-      state = EXE_END; next_state = state; // SAME CYCLE STATE TRANSITION
+      //state = EXE_END; next_state = state; // SAME CYCLE STATE TRANSITION
+      // Not same cycle transition since RV32I exe is pipeline with io regs
+      next_state = EXE_END;
     }
     #ifdef RV32_M
     else if(decoded_reg.is_rv32_mul){
@@ -637,7 +654,8 @@ riscv_out_t fsm_riscv(
 MAIN_MHZ(my_cpu_top, PLL_CLK_MHZ)
 void my_cpu_top()
 {
-  uint1_t reset = 0; // TODO use
+  // For for PLL to lock before releasing reset
+  uint1_t reset = ~pll_locked;
 
   // Instance of core
   my_mmio_in_t in;
@@ -647,34 +665,22 @@ void my_cpu_top()
   // Output LEDs for hardware debug
   // (active low on pico ice)
   led_g = out.mem_map_outputs.ctrl.led;
-  static uint1_t mem_out_of_range;
-  static uint1_t unknown_op;
-  led_b = ~mem_out_of_range;
-  led_r = ~unknown_op;
-  mem_out_of_range |= out.mem_out_of_range;
-  unknown_op |= out.unknown_op;
-}
-
-#ifdef DEFAULT_PI_UART
-// UART part of demo
-MAIN_MHZ(uart_main, PLL_CLK_MHZ)
-void uart_main(){
-  // Default loopback connect
-  uart_tx_mac_word_in = uart_rx_mac_word_out;
-  uart_rx_mac_out_ready = uart_tx_mac_in_ready;
-
-  // Override .data to do case change demo
-  char in_char = uart_rx_mac_word_out.data;
-  char out_char = in_char;
-  uint8_t case_diff = 'a' - 'A';
-  if(in_char >= 'a' && in_char <= 'z'){
-    out_char = in_char - case_diff;
-  }else if(in_char >= 'A' && in_char <= 'Z'){
-    out_char = in_char + case_diff;
+  led_b = 1;
+  led_r = 1;
+  static uint1_t saw_error;
+  if(saw_error)
+  {
+    led_r = 0;
+    led_g = 1;
+    led_b = 1;
   }
-  uart_tx_mac_word_in.data = out_char;
+  saw_error |= out.pc_out_of_range;
+  saw_error |= out.mem_out_of_range;
+  saw_error |= out.unknown_op; // UART code hits this? WTF?
+  if(reset){
+    saw_error = 0;
+  }
 }
-#endif
 
 #ifdef DEFAULT_VGA_PMOD
 // VGA pmod part of demo
