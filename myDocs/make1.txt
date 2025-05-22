@@ -1,0 +1,17 @@
+riscv32-unknown-linux-gnu-gcc -O3 bootstrap.S main.c -lm -o main -march=rv32i -mabi=ilp32 -mstrict-align -nostartfiles -T link.ld
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /home/devel/2nd/riscv/sysroot/usr/lib/libm.so: can't link double-float modules with soft-float modules
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: failed to merge target specific data of file /home/devel/2nd/riscv/sysroot/usr/lib/libm.so
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/lib/libgcc_s.so.1: can't link double-float modules with soft-float modules
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: failed to merge target specific data of file /home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/lib/libgcc_s.so.1
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /home/devel/2nd/riscv/sysroot/lib/libc.so.6: can't link double-float modules with soft-float modules
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: failed to merge target specific data of file /home/devel/2nd/riscv/sysroot/lib/libc.so.6
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /home/devel/2nd/riscv/sysroot/lib/ld-linux-riscv32-ilp32d.so.1: can't link double-float modules with soft-float modules
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: failed to merge target specific data of file /home/devel/2nd/riscv/sysroot/lib/ld-linux-riscv32-ilp32d.so.1
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/lib/libgcc_s.so.1: can't link double-float modules with soft-float modules
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: failed to merge target specific data of file /home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/lib/libgcc_s.so.1
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: main section `.text' will not fit in region `rom'
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: region `rom' overflowed by 420 bytes
+/home/devel/2nd/riscv/lib/gcc/riscv32-unknown-linux-gnu/14.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: main: error: PHDR segment not covered by LOAD segment
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:9: all] Error 1
+
