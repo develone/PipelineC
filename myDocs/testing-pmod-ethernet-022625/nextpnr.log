@@ -1,0 +1,385 @@
+Info: constrained 'clk_12p0' to bel 'X12/Y31/io1'
+Info: constrained 'ICE_39' to bel 'X4/Y31/io0'
+Info: constrained 'ICE_40' to bel 'X5/Y31/io0'
+Info: constrained 'ICE_41' to bel 'X6/Y31/io0'
+Info: constrained 'ICE_25' to bel 'X19/Y31/io1'
+Info: constrained 'ICE_27' to bel 'X18/Y31/io1'
+Info: constrained 'ICE_45' to bel 'X7/Y0/io1'
+Info: constrained 'ICE_47' to bel 'X6/Y0/io0'
+Info: constrained 'ICE_2' to bel 'X8/Y0/io0'
+Info: constrained 'ICE_4' to bel 'X9/Y0/io0'
+Info: constrained 'ICE_44' to bel 'X6/Y0/io1'
+Info: constrained 'ICE_46' to bel 'X5/Y0/io0'
+Info: constrained 'ICE_48' to bel 'X7/Y0/io0'
+Info: constrained 'ICE_3' to bel 'X9/Y0/io1'
+Info: constrained 'ICE_31' to bel 'X16/Y31/io1'
+Info: constrained 'ICE_34' to bel 'X13/Y31/io1'
+Info: constrained 'ICE_38' to bel 'X8/Y31/io1'
+Info: constrained 'ICE_43' to bel 'X9/Y31/io0'
+Info: constrained 'ICE_28' to bel 'X17/Y31/io0'
+Info: constrained 'ICE_32' to bel 'X16/Y31/io0'
+Info: constrained 'ICE_36' to bel 'X9/Y31/io1'
+Info: constrained 'ICE_42' to bel 'X8/Y31/io0'
+Info: constraining clock net 'pipelinec_inst.clk_50p0' to 50.00 MHz
+Info: constraining clock net 'pipelinec_inst.clk_25p0' to 25.00 MHz
+
+Info: Packing constants..
+Info: Packing IOs..
+Info: Packing LUT-FFs..
+Info:     1079 LCs used as LUT4 only
+Info:      430 LCs used as LUT4 and DFF
+Info: Packing non-LUT FFs..
+Info:      784 LCs used as DFF only
+Info: Packing carries..
+Info:       26 LCs used as CARRY only
+Info: Packing indirect carry+LUT pairs...
+Info:       13 LUTs merged into carry LCs
+Info: Packing RAMs..
+Info: Placing PLLs..
+Info:   constrained PLL 'pll_inst.uut' to X12/Y31/pll_3
+Info: Packing special functions..
+Info: Packing PLLs..
+Info:   PLL 'pll_inst.uut' has LOCK output, need to pass all outputs via LUT
+Info:   LUT strategy for LOCK: move all users to new LUT
+Info:   constrained 'pll_inst.uut_PLL$nextpnr_LOCK_lut_through' to X1/Y30/lc0
+Info: Promoting globals..
+Info: promoting pll_clk (fanout 906)
+Info: promoting ICE_4$SB_IO_IN (fanout 308)
+Info: promoting ICE_47_SB_DFFSR_Q_R[1] [reset] (fanout 36)
+Info: promoting pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I2_SB_LUT4_I3_O [reset] (fanout 35)
+Info: promoting pipelinec_inst.tx_main_0clk_8a9cc85b.eth_8_tx_ethernet_top_c_l176_c23_2f32.header_SB_DFFESS_Q_S [reset] (fanout 24)
+Info: promoting pipelinec_inst.no_skid_rmii_eth_mac_rx_fifo_fifo.pipelinec_fifo_fwft_inst.rd_ptr_gray_sync2_reg_SB_LUT4_I1_O_SB_LUT4_I3_O [reset] (fanout 23)
+Info: promoting pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3_SB_LUT4_I3_O [cen] (fanout 64)
+Info: promoting pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3_SB_LUT4_I3_1_O [cen] (fanout 64)
+Info: Constraining chains...
+Info:       19 LCs used to legalise carry chains.
+Info: Checksum: 0xc5c07a48
+
+Info: Device utilisation:
+Info: 	         ICESTORM_LC:    2328/   5280    44%
+Info: 	        ICESTORM_RAM:       0/     30     0%
+Info: 	               SB_IO:      22/     96    22%
+Info: 	               SB_GB:       8/      8   100%
+Info: 	        ICESTORM_PLL:       1/      1   100%
+Info: 	         SB_WARMBOOT:       0/      1     0%
+Info: 	        ICESTORM_DSP:       0/      8     0%
+Info: 	      ICESTORM_HFOSC:       0/      1     0%
+Info: 	      ICESTORM_LFOSC:       0/      1     0%
+Info: 	              SB_I2C:       0/      2     0%
+Info: 	              SB_SPI:       0/      2     0%
+Info: 	              IO_I3C:       0/      2     0%
+Info: 	         SB_LEDDA_IP:       0/      1     0%
+Info: 	         SB_RGBA_DRV:       0/      1     0%
+Info: 	      ICESTORM_SPRAM:       0/      4     0%
+
+Info: Placed 24 cells based on constraints.
+Info: Creating initial analytic placement for 2181 cells, random placement wirelen = 55404.
+Info:     at initial placer iter 0, wirelen = 160
+Info:     at initial placer iter 1, wirelen = 158
+Info:     at initial placer iter 2, wirelen = 167
+Info:     at initial placer iter 3, wirelen = 158
+Info: Running main analytical placer, max placement attempts per cell = 695610.
+Info:     at iteration #1, type ALL: wirelen solved = 167, spread = 8870, legal = 11748; time = 0.09s
+Info:     at iteration #2, type ALL: wirelen solved = 783, spread = 6774, legal = 11084; time = 0.10s
+Info:     at iteration #3, type ALL: wirelen solved = 1198, spread = 6116, legal = 11267; time = 0.10s
+Info:     at iteration #4, type ALL: wirelen solved = 1370, spread = 5636, legal = 9597; time = 0.09s
+Info:     at iteration #5, type ALL: wirelen solved = 1659, spread = 5536, legal = 9332; time = 0.09s
+Info:     at iteration #6, type ALL: wirelen solved = 1969, spread = 5351, legal = 9378; time = 0.10s
+Info:     at iteration #7, type ALL: wirelen solved = 2121, spread = 5195, legal = 14516; time = 0.18s
+Info:     at iteration #8, type ALL: wirelen solved = 2200, spread = 5280, legal = 10843; time = 0.10s
+Info:     at iteration #9, type ALL: wirelen solved = 2301, spread = 5098, legal = 9493; time = 0.09s
+Info:     at iteration #10, type ALL: wirelen solved = 2512, spread = 4998, legal = 8972; time = 0.08s
+Info:     at iteration #11, type ALL: wirelen solved = 2575, spread = 4996, legal = 9969; time = 0.10s
+Info:     at iteration #12, type ALL: wirelen solved = 2706, spread = 4986, legal = 10128; time = 0.09s
+Info:     at iteration #13, type ALL: wirelen solved = 2849, spread = 5216, legal = 9451; time = 0.08s
+Info:     at iteration #14, type ALL: wirelen solved = 3100, spread = 5267, legal = 8574; time = 0.09s
+Info:     at iteration #15, type ALL: wirelen solved = 3083, spread = 5061, legal = 9659; time = 0.10s
+Info:     at iteration #16, type ALL: wirelen solved = 2997, spread = 4997, legal = 9391; time = 0.10s
+Info:     at iteration #17, type ALL: wirelen solved = 3154, spread = 5035, legal = 9549; time = 0.09s
+Info:     at iteration #18, type ALL: wirelen solved = 3301, spread = 5077, legal = 10037; time = 0.10s
+Info:     at iteration #19, type ALL: wirelen solved = 3362, spread = 5016, legal = 9101; time = 0.08s
+Info: HeAP Placer Time: 2.51s
+Info:   of which solving equations: 1.01s
+Info:   of which spreading cells: 0.15s
+Info:   of which strict legalisation: 0.84s
+
+Info: Running simulated annealing placer for refinement.
+Info:   at iteration #1: temp = 0.000000, timing cost = 647, wirelen = 8574
+Info:   at iteration #5: temp = 0.000000, timing cost = 817, wirelen = 7138
+Info:   at iteration #10: temp = 0.000000, timing cost = 818, wirelen = 6519
+Info:   at iteration #15: temp = 0.000000, timing cost = 867, wirelen = 6218
+Info:   at iteration #20: temp = 0.000000, timing cost = 966, wirelen = 6068
+Info:   at iteration #24: temp = 0.000000, timing cost = 937, wirelen = 5920 
+Info: SA placement time 3.18s
+
+Info: Max frequency for clock 'ICE_4$SB_IO_IN_$glb_clk': 55.51 MHz (PASS at 50.00 MHz)
+Info: Max frequency for clock        'pll_clk_$glb_clk': 28.24 MHz (PASS at 25.00 MHz)
+
+Info: Max delay <async>                         -> posedge ICE_4$SB_IO_IN_$glb_clk: 4.41 ns
+Info: Max delay posedge ICE_4$SB_IO_IN_$glb_clk -> <async>                        : 3.15 ns
+Info: Max delay posedge ICE_4$SB_IO_IN_$glb_clk -> posedge pll_clk_$glb_clk       : 8.45 ns
+Info: Max delay posedge pll_clk_$glb_clk        -> posedge ICE_4$SB_IO_IN_$glb_clk: 8.85 ns
+
+Info: Slack histogram:
+Info:  legend: * represents 10 endpoint(s)
+Info:          + represents [1,10) endpoint(s)
+Info: [  1986,   3688) |*****+
+Info: [  3688,   5390) |***+
+Info: [  5390,   7092) |***************+
+Info: [  7092,   8794) |***********+
+Info: [  8794,  10496) |****************+
+Info: [ 10496,  12198) |**************+
+Info: [ 12198,  13900) |******************+
+Info: [ 13900,  15602) |*****************+
+Info: [ 15602,  17304) |********************+
+Info: [ 17304,  19006) |****+
+Info: [ 19006,  20708) |*********+
+Info: [ 20708,  22410) |********************+
+Info: [ 22410,  24112) |**************+
+Info: [ 24112,  25814) |***+
+Info: [ 25814,  27516) |*******+
+Info: [ 27516,  29218) |***********+
+Info: [ 29218,  30920) |*********+
+Info: [ 30920,  32622) |**********+
+Info: [ 32622,  34324) |****************************+
+Info: [ 34324,  36026) |************************************************************ 
+Info: Checksum: 0x8082e13b
+
+Info: Routing..
+Info: Setting up routing queue.
+Info: Routing 6286 arcs.
+Info:            |   (re-)routed arcs  |   delta    | remaining|       time spent     |
+Info:    IterCnt |  w/ripup   wo/ripup |  w/r  wo/r |      arcs| batch(sec) total(sec)|
+Info:       1000 |       61        938 |   61   938 |      5387|       0.47       0.47|
+Info:       2000 |      201       1783 |  140   845 |      4536|       0.17       0.64|
+Info:       3000 |      391       2558 |  190   775 |      3771|       0.14       0.78|
+Info:       4000 |      612       3326 |  221   768 |      3056|       0.14       0.92|
+Info:       5000 |      893       4008 |  281   682 |      2398|       0.20       1.12|
+Info:       6000 |     1134       4763 |  241   755 |      1756|       0.23       1.36|
+Info:       7000 |     1341       5539 |  207   776 |      1060|       0.21       1.57|
+Info:       8000 |     1530       6346 |  189   807 |       296|       0.20       1.76|
+Info:       8297 |     1532       6642 |    2   296 |         0|       0.27       2.04|
+Info: Routing complete.
+Info: Router1 time 2.04s
+Info: Checksum: 0x99514c75
+
+Info: Critical path report for clock 'ICE_4$SB_IO_IN_$glb_clk' (posedge -> posedge):
+Info:       type curr  total name
+Info:   clk-to-q  1.39  1.39 Source pipelinec_inst.rmii_eth_mac_tx_fifo_rd_skid_out_0clk_d14799aa.skid_buf_rmii_eth_mac_tx_fifo_rmii_eth_mac_c_l14_c82_0a14.output_is_skid_buff_mux_rmii_eth_mac_c_l14_c945_13fb.iffalse_SB_DFFE_Q_D_SB_LUT4_O_LC.O
+Info:    routing  3.49  4.89 Net pipelinec_inst.rmii_eth_mac_tx_fifo_rd_skid_out_0clk_d14799aa.skid_buf_rmii_eth_mac_tx_fifo_rmii_eth_mac_c_l14_c82_0a14.buff_mux_rmii_eth_mac_c_l14_c868_7779_cond (9,10) -> (3,9)
+Info:                          Sink pipelinec_inst.rmii_eth_mac_tx_fifo_rd_skid_out_0clk_d14799aa.skid_buf_rmii_eth_mac_tx_fifo_rmii_eth_mac_c_l14_c82_0a14.buff_mux_rmii_eth_mac_c_l14_c841_19a1.iffalse.valid_SB_LUT4_I3_LC.I2
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  1.21  6.09 Source pipelinec_inst.rmii_eth_mac_tx_fifo_rd_skid_out_0clk_d14799aa.skid_buf_rmii_eth_mac_tx_fifo_rmii_eth_mac_c_l14_c82_0a14.buff_mux_rmii_eth_mac_c_l14_c841_19a1.iffalse.valid_SB_LUT4_I3_LC.O
+Info:    routing  1.76  7.85 Net pipelinec_inst.rmii_eth_mac_tx_fifo_rd_skid_out_0clk_d14799aa.skid_buf_rmii_eth_mac_tx_fifo_rmii_eth_mac_c_l14_c82_0a14.buff_mux_rmii_eth_mac_c_l14_c841_19a1.iffalse.valid_SB_LUT4_I3_O[1] (3,9) -> (3,8)
+Info:                          Sink pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_LUT4_I1_LC.I2
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  1.21  9.06 Source pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_LUT4_I1_LC.O
+Info:    routing  2.41  11.47 Net pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_LUT4_I1_O[1] (3,8) -> (4,5)
+Info:                          Sink pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_DFFESR_Q_D_SB_LUT4_O_LC.I2
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  1.21  12.67 Source pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_DFFESR_Q_D_SB_LUT4_O_LC.O
+Info:    routing  1.76  14.43 Net pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_DFFESR_Q_D[1] (4,5) -> (4,6)
+Info:                          Sink pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_DFFESR_Q_D_SB_LUT4_I3_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  15.31 Source pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_DFFESR_Q_D_SB_LUT4_I3_LC.O
+Info:    routing  2.45  17.75 Net pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.valid_out_pipe_reg_SB_DFFESR_Q_D_SB_LUT4_I3_O (4,6) -> (3,6)
+Info:                          Sink pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.rd_ptr_gray_reg_SB_DFFESR_Q_DFFLC.CEN
+Info:      setup  0.10  17.85 Source pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.rd_ptr_gray_reg_SB_DFFESR_Q_DFFLC.CEN
+Info: 5.98 ns logic, 11.87 ns routing
+
+Info: Critical path report for clock 'pll_clk_$glb_clk' (posedge -> posedge):
+Info:       type curr  total name
+Info:   clk-to-q  1.39  1.39 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_plus_axis_h_l282_c686_012e.left_SB_DFFESR_Q_12_D_SB_LUT4_O_LC.O
+Info:    routing  1.76  3.15 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_eq_axis_h_l282_c372_e829_left[3] (11,3) -> (12,3)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_LUT4_O_LC.I3
+Info:      logic  0.87  4.03 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_LUT4_O_LC.O
+Info:    routing  1.76  5.79 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,3) -> (12,4)
+Info:                          Sink $nextpnr_ICESTORM_LC_8.I1
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:8.8-8.10
+Info:      logic  0.68  6.46 Source $nextpnr_ICESTORM_LC_8.COUT
+Info:    routing  0.00  6.46 Net $nextpnr_ICESTORM_LC_8$O (12,4) -> (12,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:      logic  0.28  6.74 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  6.74 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,4) -> (12,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  7.02 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  7.02 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,4) -> (12,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  7.30 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  7.30 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,4) -> (12,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  7.57 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  7.57 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,4) -> (12,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  7.85 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  7.85 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,4) -> (12,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  8.13 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  8.13 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,4) -> (12,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  8.41 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.56  8.96 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,4) -> (12,5)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  9.24 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  9.24 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,5) -> (12,5)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  9.52 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  9.52 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,5) -> (12,5)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  9.80 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  9.80 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO_CI (12,5) -> (12,5)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  10.07 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.00  10.07 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO_CI (12,5) -> (12,5)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO$CARRY.CIN
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/arith_map.v:62.5-70.4
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/abc9_model.v:4.9-4.11
+Info:      logic  0.28  10.35 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.axis8_max_len_limiter_ethernet_top_c_l77_c36_0b85.bin_op_and_axis_h_l282_c631_c4c1.return_output_SB_LUT4_O_I2_SB_CARRY_CO$CARRY.COUT
+Info:    routing  0.66  11.02 Net $nextpnr_ICESTORM_LC_9$I3 (12,5) -> (12,5)
+Info:                          Sink $nextpnr_ICESTORM_LC_9.I3
+Info:      logic  0.87  11.89 Source $nextpnr_ICESTORM_LC_9.O
+Info:    routing  1.76  13.65 Net pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I2[3] (12,5) -> (13,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.work_deserialize_type_byte_deserializer_ethernet_top_c_l77_c377_95ff.work_deserialize_type_byte_deserializer_deserializer_in_to_out_ethernet_top_c_l77_c1802_eb5b.bin_op_and_ethernet_top_c_l77_c725_297d.right_SB_LUT4_I0_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  14.52 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.work_deserialize_type_byte_deserializer_ethernet_top_c_l77_c377_95ff.work_deserialize_type_byte_deserializer_deserializer_in_to_out_ethernet_top_c_l77_c1802_eb5b.bin_op_and_ethernet_top_c_l77_c725_297d.right_SB_LUT4_I0_LC.O
+Info:    routing  1.76  16.28 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.work_deserialize_type_byte_deserializer_ethernet_top_c_l77_c377_95ff.work_deserialize_type_byte_deserializer_deserializer_in_to_out_ethernet_top_c_l77_c1802_eb5b.bin_op_and_ethernet_top_c_l77_c725_297d.right_SB_LUT4_I0_O[2] (13,4) -> (13,4)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.work_deserialize_type_byte_deserializer_ethernet_top_c_l77_c377_95ff.work_deserialize_type_byte_deserializer_deserializer_in_to_out_ethernet_top_c_l77_c1802_eb5b.bin_op_and_ethernet_top_c_l77_c725_297d.right_SB_LUT4_I0_O_SB_LUT4_I2_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  17.16 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.work_deserialize_type_byte_deserializer_ethernet_top_c_l77_c377_95ff.work_deserialize_type_byte_deserializer_deserializer_in_to_out_ethernet_top_c_l77_c1802_eb5b.bin_op_and_ethernet_top_c_l77_c725_297d.right_SB_LUT4_I0_O_SB_LUT4_I2_LC.O
+Info:    routing  1.76  18.92 Net pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.work_deserialize_type_byte_deserializer_ethernet_top_c_l77_c377_95ff.work_deserialize_type_byte_deserializer_deserializer_in_to_out_ethernet_top_c_l77_c1802_eb5b.bin_op_and_ethernet_top_c_l77_c725_297d.right_SB_LUT4_I0_O_SB_LUT4_I2_O[2] (13,4) -> (13,3)
+Info:                          Sink pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.work_deserialize_type_byte_deserializer_ethernet_top_c_l77_c377_95ff.work_deserialize_type_byte_deserializer_deserializer_in_to_out_ethernet_top_c_l77_c1802_eb5b.bin_op_and_ethernet_top_c_l77_c725_297d.right_SB_LUT4_I0_O_SB_LUT4_I2_O_SB_LUT4_I1_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  19.79 Source pipelinec_inst.rx_main_0clk_646cd2b5.work_deserialize_ethernet_top_c_l128_c30_f350.work_deserialize_type_byte_deserializer_ethernet_top_c_l77_c377_95ff.work_deserialize_type_byte_deserializer_deserializer_in_to_out_ethernet_top_c_l77_c1802_eb5b.bin_op_and_ethernet_top_c_l77_c725_297d.right_SB_LUT4_I0_O_SB_LUT4_I2_O_SB_LUT4_I1_LC.O
+Info:    routing  1.76  21.56 Net pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3_SB_LUT4_O_I2[1] (13,3) -> (12,2)
+Info:                          Sink pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3_SB_LUT4_O_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  22.43 Source pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3_SB_LUT4_O_LC.O
+Info:    routing  4.79  27.22 Net pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3[1] (12,2) -> (4,14)
+Info:                          Sink pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3_SB_LUT4_I3_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      logic  0.87  28.09 Source pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3_SB_LUT4_I3_LC.O
+Info:    routing  4.83  32.92 Net pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.wr_ptr_reg_SB_DFFESR_Q_E_SB_LUT4_O_I3_SB_LUT4_I3_O (4,14) -> (12,5)
+Info:                          Sink pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.mem[1]_SB_DFFE_Q_32_DFFLC.CEN
+Info:      setup  0.10  33.02 Source pipelinec_inst.loopback_headers_fifo_fifo.pipelinec_fifo_fwft_inst.mem[1]_SB_DFFE_Q_32_DFFLC.CEN
+Info: 11.62 ns logic, 21.41 ns routing
+
+Info: Critical path report for cross-domain path '<async>' -> 'posedge ICE_4$SB_IO_IN_$glb_clk':
+Info:       type curr  total name
+Info:     source  0.00  0.00 Source ICE_3$sb_io.D_IN_0
+Info:    routing  3.49  3.49 Net ICE_3$SB_IO_IN (9,0) -> (14,1)
+Info:                          Sink pipelinec_inst.rmii_connect_0clk_380ecc95.module_to_global.rmii_crs_dv_SB_DFF_Q_DFFLC.I0
+Info:                          Defined in:
+Info:                               top_pins.svh:20.7-20.12
+Info:      setup  1.23  4.73 Source pipelinec_inst.rmii_connect_0clk_380ecc95.module_to_global.rmii_crs_dv_SB_DFF_Q_DFFLC.I0
+Info: 1.23 ns logic, 3.49 ns routing
+
+Info: Critical path report for cross-domain path 'posedge ICE_4$SB_IO_IN_$glb_clk' -> '<async>':
+Info:       type curr  total name
+Info:   clk-to-q  1.39  1.39 Source ICE_45_SB_DFFSR_Q_D_SB_LUT4_O_LC.O
+Info:    routing  3.60  4.99 Net ICE_45$SB_IO_OUT (9,5) -> (7,0)
+Info:                          Sink ICE_45$sb_io.D_OUT_0
+Info:                          Defined in:
+Info:                               top_pins.svh:12.7-12.13
+Info: 1.39 ns logic, 3.60 ns routing
+
+Info: Critical path report for cross-domain path 'posedge ICE_4$SB_IO_IN_$glb_clk' -> 'posedge pll_clk_$glb_clk':
+Info:       type curr  total name
+Info:   clk-to-q  1.39  1.39 Source pipelinec_inst.no_skid_rmii_eth_mac_rx_fifo_fifo.pipelinec_fifo_fwft_inst.mem[2]_SB_DFFE_Q_3_DFFLC.O
+Info:    routing  3.49  4.89 Net pipelinec_inst.no_skid_rmii_eth_mac_rx_fifo_fifo.pipelinec_fifo_fwft_inst.mem[2][5] (20,4) -> (13,6)
+Info:                          Sink pipelinec_inst.no_skid_rmii_eth_mac_rx_fifo_fifo.dout_slv_SB_DFF_Q_2_D_SB_LUT4_O_I2_SB_LUT4_O_LC.I2
+Info:      logic  1.21  6.09 Source pipelinec_inst.no_skid_rmii_eth_mac_rx_fifo_fifo.dout_slv_SB_DFF_Q_2_D_SB_LUT4_O_I2_SB_LUT4_O_LC.O
+Info:    routing  1.76  7.85 Net pipelinec_inst.no_skid_rmii_eth_mac_rx_fifo_fifo.dout_slv_SB_DFF_Q_2_D_SB_LUT4_O_I2[1] (13,6) -> (12,6)
+Info:                          Sink pipelinec_inst.no_skid_rmii_eth_mac_rx_fifo_fifo.dout_slv_SB_DFF_Q_2_D_SB_LUT4_O_LC.I2
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      setup  1.15  9.01 Source pipelinec_inst.no_skid_rmii_eth_mac_rx_fifo_fifo.dout_slv_SB_DFF_Q_2_D_SB_LUT4_O_LC.I2
+Info: 3.75 ns logic, 5.26 ns routing
+
+Info: Critical path report for cross-domain path 'posedge pll_clk_$glb_clk' -> 'posedge ICE_4$SB_IO_IN_$glb_clk':
+Info:       type curr  total name
+Info:   clk-to-q  1.39  1.39 Source pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.mem[0]_SB_DFFE_Q_8_DFFLC.O
+Info:    routing  3.60  4.99 Net pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.mem[0][0] (8,8) -> (3,9)
+Info:                          Sink pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.output_stream_pipe_reg_SB_DFFE_Q_8_D_SB_LUT4_O_I2_SB_LUT4_O_1_LC.I2
+Info:      logic  1.21  6.20 Source pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.output_stream_pipe_reg_SB_DFFE_Q_8_D_SB_LUT4_O_I2_SB_LUT4_O_1_LC.O
+Info:    routing  1.76  7.96 Net pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.output_stream_pipe_reg_SB_DFFE_Q_8_D_SB_LUT4_O_I2[2] (3,9) -> (4,9)
+Info:                          Sink pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.output_stream_pipe_reg_SB_DFFE_Q_8_D_SB_LUT4_O_LC.I3
+Info:                          Defined in:
+Info:                               /home/devel/oss-cad-suite/lib/../share/yosys/ice40/cells_map.v:6.21-6.22
+Info:      setup  0.82  8.78 Source pipelinec_inst.no_skid_rmii_eth_mac_tx_fifo_fifo.pipelinec_fifo_fwft_inst.output_stream_pipe_reg_SB_DFFE_Q_8_D_SB_LUT4_O_LC.I3
+Info: 3.42 ns logic, 5.36 ns routing
+
+Info: Max frequency for clock 'ICE_4$SB_IO_IN_$glb_clk': 56.01 MHz (PASS at 50.00 MHz)
+Info: Max frequency for clock        'pll_clk_$glb_clk': 30.28 MHz (PASS at 25.00 MHz)
+
+Info: Max delay <async>                         -> posedge ICE_4$SB_IO_IN_$glb_clk: 4.73 ns
+Info: Max delay posedge ICE_4$SB_IO_IN_$glb_clk -> <async>                        : 4.99 ns
+Info: Max delay posedge ICE_4$SB_IO_IN_$glb_clk -> posedge pll_clk_$glb_clk       : 9.01 ns
+Info: Max delay posedge pll_clk_$glb_clk        -> posedge ICE_4$SB_IO_IN_$glb_clk: 8.78 ns
+
+Info: Slack histogram:
+Info:  legend: * represents 11 endpoint(s)
+Info:          + represents [1,11) endpoint(s)
+Info: [  2147,   3841) |***+
+Info: [  3841,   5535) |***+
+Info: [  5535,   7229) |***+
+Info: [  7229,   8923) |*********+
+Info: [  8923,  10617) |*************+
+Info: [ 10617,  12311) |*************************+
+Info: [ 12311,  14005) |***************+
+Info: [ 14005,  15699) |*************************+
+Info: [ 15699,  17393) |*****+
+Info: [ 17393,  19087) |****+
+Info: [ 19087,  20781) |****+
+Info: [ 20781,  22475) |***********+
+Info: [ 22475,  24169) |****************+
+Info: [ 24169,  25863) |***+
+Info: [ 25863,  27557) |*********+
+Info: [ 27557,  29251) |***********+
+Info: [ 29251,  30945) |*****+
+Info: [ 30945,  32639) |**********+
+Info: [ 32639,  34333) |*****************+
+Info: [ 34333,  36027) |************************************************************ 
+
+Info: Program finished normally.
