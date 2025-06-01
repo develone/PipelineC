@@ -1,0 +1,42 @@
+devel@pi5-90:git clone https://github.com/develone/PipelineC.git -b test-dev-060125
+
+devel@pi5-90:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec/risc-v/firmware $ make hex
+riscv32-unknown-elf-gcc -O3 bootstrap.S main.c -lm -o main -march=rv32i -mabi=ilp32 -mstrict-align -nostartfiles -T link.ld
+riscv32-unknown-elf-objcopy -O binary main text.bin --only-section .text
+./bin2vhdl.py text.bin
+riscv32-unknown-elf-objcopy -O binary main data.bin --only-section .data
+./bin2vhdl.py data.bin
+#the following command copies the "firmware" to be embedded into the risc-v cpu gateware
+cp *_mem_init.h ../
+
+devel@pi5-90:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ make clean all PIPELINEC_TOP=risc-v/risc-v_top.c PLL_CLK_MHZ=25.0
+rm -f lextab.py
+rm -f yacctab.py
+rm -f pipelinec_makefile_config.h
+rm -f -r pipelinec_output
+rm -f pipelinec.log
+rm -f pll.v
+rm -f *.json *.asc *.bin *.uf2
+rm -f yosys_stderr.log
+rm -f dfu_util.log
+rm -f mpremote.log
+echo "#define PLL_CLK_MHZ 25.0\n" > pipelinec_makefile_config.h
+echo "#define BOARD_PICO \n" >> pipelinec_makefile_config.h
+/home/devel/PipelineC/src/pipelinec top.c --top pipelinec_top --out_dir pipelinec_output --comb --no_synth > pipelinec.log
+/home/devel/oss-cad-suite//bin/icepll -q -i 12 -o 25.0 -p -m -f pll.v
+/home/devel/oss-cad-suite//bin/yosys -q -m ghdl -p "ghdl --std=08 -frelaxed `cat pipelinec_output/vhdl_files.txt` -e pipelinec_top; read_verilog -sv top.sv pll.v; synth_ice40 -top top -json gateware.json" 2> yosys_stderr.log
+/home/devel/oss-cad-suite//bin/nextpnr-ice40 -q --seed 0 --up5k --package sg48 --pcf ice40.pcf --json gateware.json --asc gateware.asc --freq 25.0
+/home/devel/oss-cad-suite//bin/icepack gateware.asc gateware.bin
+devel@pi5-90:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ bin2uf2 -o gateware.uf2 gateware.bin 
+devel@pi5-90:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ cp gateware.uf2 /media/devel/pico2-ice/
+pico2-ice blinks red.
+
+devel@pi5-90:~ $ minicom myusb0
+
+Welcome to minicom 2.8
+
+OPTIONS: I18n 
+Port /dev/ttyUSB0, 11:38:35
+
+Press CTRL-A Z for help on special keys
+
