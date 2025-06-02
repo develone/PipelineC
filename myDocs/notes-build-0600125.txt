@@ -9,7 +9,7 @@ riscv32-unknown-elf-objcopy -O binary main data.bin --only-section .data
 #the following command copies the "firmware" to be embedded into the risc-v cpu gateware
 cp *_mem_init.h ../
 
-devel@pi5-90:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ make clean all PIPELINEC_TOP=risc-v/risc-v_top.c PLL_CLK_MHZ=25.0
+devel@pi5-90:~/PipelineC/examples/pico-ice/ice_makefile_pipelinec $ make clean all PIPELINEC_TOP=risc-v/risc-v_top.c BOARD=PICO2 PLL_CLK_MHZ=25.0
 rm -f lextab.py
 rm -f yacctab.py
 rm -f pipelinec_makefile_config.h
