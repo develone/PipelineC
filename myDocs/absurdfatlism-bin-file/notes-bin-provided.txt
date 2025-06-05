@@ -1,0 +1,18 @@
+first test 06/05/25
+devel@pi5-90:~/master-repos/PipelineC/myDocs/absurdfatlism-bin-file $ shasum gateware.bin
+e2ed034c4ccdd7e0cab606cdd5107a7ef45a0413  gateware.bin
+
+devel@pi5-90:~/master-repos/PipelineC/myDocs/absurdfatlism-bin-file $ bin2uf2 -o gateware.uf2 gateware.bin
+
+devel@pi5-90:~/master-repos/PipelineC/myDocs/absurdfatlism-bin-file $ cp gateware.uf2 /media/devel/pico2-ice/
+
+devel@pi5-90:~ $ minicom myusb0
+
+Welcome to minicom 2.8
+
+OPTIONS: I18n 
+Port /dev/ttyUSB0, 11:14:41
+
+Press CTRL-A Z for help on special keys
+
+THIS IS THE GATEWARE.BIN PROVIDED BY ABSURDFATLISM WHICH IS A RISCV WITH UART.
